@@ -29,26 +29,26 @@ namespace ProductShop.Controllers
         {
             try
             {
-                List<ProductDTO> films = new List<ProductDTO>();
-                foreach (var film in _context.Products)
+                List<ProductDTO> products = new List<ProductDTO>();
+                foreach (var product in _context.Products)
                 {
-                    ProductDTO filmDTO = new ProductDTO
+                    ProductDTO productDTO = new ProductDTO
                     {
-                        Id = film.Id,
-                        Name = film.Name,
-                        Description = film.Description,
-                        Image = film.Image,
-                        Year = film.Year,
-                        Category = film.Category
+                        Id = product.Id,
+                        Name = product.Name,
+                        Description = product.Description,
+                        Image = product.Image,
+                        Year = product.Year,
+                        Category = product.Category
                     };
-                    films.Add(filmDTO);
+                    products.Add(productDTO);
 
                 }
 
                 return new CollectionResultDTO<ProductDTO>
                 {
                     StatusCode = true,
-                    Result = films
+                    Result = products
                 };
 
             }
@@ -65,17 +65,17 @@ namespace ProductShop.Controllers
 
         [HttpPost]
         [Route("add")]
-        public ResultDTO AddProduct([FromBody] AddProductDTO film)
+        public ResultDTO AddProduct([FromBody] AddProductDTO product)
         {
             try
             {
                 Product newProduct = new Product
                 {
-                    Name = film.Name,
-                    Description = film.Description,
-                    Image = film.Image,
-                    Year = film.Year,
-                    Category = _context.Categories.FirstOrDefault(x => x.Name == film.CategoryName)
+                    Name = product.Name,
+                    Description = product.Description,
+                    Image = product.Image,
+                    Year = product.Year,
+                    Category = _context.Categories.FirstOrDefault(x => x.Name == product.CategoryName)
 
                 };
                 _context.Products.Add(newProduct);
@@ -95,10 +95,10 @@ namespace ProductShop.Controllers
         {
             try
             {
-                Product film = _context.Products.FirstOrDefault(x => x.Id == id);
-                if (film != null)
+                Product product = _context.Products.FirstOrDefault(x => x.Id == id);
+                if (product != null)
                 {
-                    _context.Products.Remove(film);
+                    _context.Products.Remove(product);
                     _context.SaveChanges();
                     return new ResultDTO { StatusCode = true };
                 }
@@ -118,7 +118,7 @@ namespace ProductShop.Controllers
         {
             try
             {
-                Product film = new Product
+                Product product = new Product
                 {
                     Id = model.Id,
                     Name = model.Name,
@@ -129,7 +129,7 @@ namespace ProductShop.Controllers
 
                 };
 
-                _context.Products.Update(film);
+                _context.Products.Update(product);
                 _context.SaveChanges();
 
                 return new ResultDTO
@@ -152,15 +152,15 @@ namespace ProductShop.Controllers
         {
             try
             {
-                Product film = _context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+                Product product = _context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
                 ProductDTO dto = new ProductDTO()
                 {
-                    Id = film.Id,
-                    Name = film.Name,
-                    Category = film.Category,
-                    Description = film.Description,
-                    Image = film.Image,
-                    Year = film.Year
+                    Id = product.Id,
+                    Name = product.Name,
+                    Category = product.Category,
+                    Description = product.Description,
+                    Image = product.Image,
+                    Year = product.Year
                 };
 
 
