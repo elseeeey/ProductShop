@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ProductShop.DAL.Entities
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class Product : ControllerBase
+    public class Product
     {
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
+        [Required]
+        public int Year { get; set; }
+        public string Image { get; set; }
+        public int Categoryid { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
