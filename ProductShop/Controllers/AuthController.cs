@@ -51,7 +51,7 @@ namespace ProductShop.Controllers
                     Message = "Model is empty"
                 };
             }
-
+            
             var user = new User()
             {
                 UserName = model.Email,
